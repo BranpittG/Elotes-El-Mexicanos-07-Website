@@ -14,7 +14,6 @@
             --bg-main: #1a1a1a; 
             --text-main: #FDFBF7; 
             --bg-container: #2c2c2c;
-            /* Keep white for cards to pop */
             --bg-white: #ffffff;
             --text-dark: #2C2C2C; 
         }
@@ -37,9 +36,11 @@
         }
         .lang-en { display: none; } body.english-active .lang-es { display: none; } body.english-active .lang-en { display: block; }
         
-        /* Header & Nav (Same as index) */
+        /* Header */
         header { background-color: var(--secondary-matte); padding: 1rem; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
-        .logo-container { display: flex; align-items: center; z-index: 1001; }
+        
+        /* Updated Logo Link */
+        .logo-link { display: flex; align-items: center; text-decoration: none; z-index: 1001; }
         .logo-img { height: 60px; width: 60px; margin-right: 10px; border-radius: 50%; border: 2px solid var(--primary-matte); background-image: url('IMG_6925.jpg'); background-position: center; background-size: 150%; }
         .site-title { color: var(--primary-matte); margin: 0; font-size: 1.5rem; }
         
@@ -63,24 +64,50 @@
         
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         
-        /* Updated Menu Item Cards for Dark Theme */
         .menu-item { 
-            background: var(--bg-white); /* Keep cards white for contrast */
+            background: var(--bg-white); 
             border-radius: 12px; 
             overflow: hidden; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5); /* Stronger shadow */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
             border-bottom: 4px solid var(--secondary-matte); 
             display: flex; 
             flex-direction: column;
-            color: var(--text-dark); /* Text inside cards must be dark */
+            color: var(--text-dark); 
         }
         .menu-item img { width: 100%; height: 280px; object-fit: cover; background-color: #fff; border-bottom: 1px solid #eee; }
         .menu-details { padding: 1.5rem; text-align: center; }
         .menu-details h3 { color: var(--accent-matte); margin-top: 0; }
         
-        /* Updated Toppings Section for Dark Theme */
+        /* Updated Flavors List Styling */
+        .flavor-list-container {
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 800px;
+            padding: 1rem;
+            background-color: var(--bg-container);
+            border-radius: 12px;
+            border: 1px solid var(--secondary-matte);
+        }
+        .flavor-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .flavor-item {
+            color: var(--primary-matte);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .flavor-item::before {
+            content: "• ";
+            color: var(--secondary-matte);
+        }
+        
         .toppings-section { 
-            background-color: var(--bg-container); /* Dark grey container */
+            background-color: var(--bg-container); 
             padding: 3rem 1rem; 
             text-align: center; 
             margin-top: 3rem; 
@@ -88,8 +115,8 @@
         }
         .toppings-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 2rem; }
         .topping-tag { 
-            background-color: var(--bg-input); /* Darker grey tags */
-            color: var(--primary-matte); /* Yellow text */
+            background-color: var(--bg-input); 
+            color: var(--primary-matte); 
             padding: 8px 15px; 
             border-radius: 20px; 
             font-weight: bold; 
@@ -98,17 +125,17 @@
         }
         .topping-tag:hover { transform: scale(1.05); background-color: var(--primary-matte); color: var(--secondary-matte); }
 
-        /* Footer */
         footer { background-color: var(--bg-container); color: var(--text-main); text-align: center; padding: 3rem 1rem 2rem 1rem; margin-top: auto; border-top: 1px solid #333; }
         .contact-link { color: var(--primary-matte); text-decoration: none; }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo-container">
+        <a href="index.html" class="logo-link">
             <div class="logo-img"></div> 
             <h1 class="site-title">Elotes El Mexicano 07</h1>
-        </div>
+        </a>
+
         <div class="hamburger" id="hamburger">
             <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         </div>
@@ -129,6 +156,28 @@
 
     <div style="text-align: center; margin-top: 2rem; padding: 0 1rem;">
         <img src="raspado_poster.PNG" alt="Raspados Poster" style="max-width: 40%; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 3px solid var(--primary-matte);">
+    </div>
+
+    <div class="flavor-list-container">
+        <h3 style="color: var(--text-main); margin-bottom: 1rem;">
+            <span class="lang-es">Sabores Naturales Disponibles</span>
+            <span class="lang-en">Available Natural Flavors</span>
+        </h3>
+        <ul class="flavor-list">
+            <li class="flavor-item">Strawberry (Fresa)</li>
+            <li class="flavor-item">Guayaba</li>
+            <li class="flavor-item">Tamarindo</li>
+            <li class="flavor-item">Limón (Lime)</li>
+            <li class="flavor-item">Piña (Pineapple)</li>
+            <li class="flavor-item">Chicle (Bubblegum)</li>
+            <li class="flavor-item">Durazno (Peach)</li>
+            <li class="flavor-item">Coco (Coconut)</li>
+            <li class="flavor-item">Vainilla</li>
+            <li class="flavor-item">Mango</li>
+            <li class="flavor-item">Mangonada</li>
+            <li class="flavor-item">Piñada</li>
+            <li class="flavor-item">Mixed Flavor (Mixto)</li>
+        </ul>
     </div>
 
     <section class="container">
@@ -192,6 +241,64 @@
                     <p class="lang-en">Maruchan soup prepared with corn and cheese.</p>
                 </div>
             </div>
+
+            <div class="menu-item">
+                <img src="sangria_preparada.jpg" alt="Sangria Preparada">
+                <div class="menu-details">
+                    <h3>Sangría Preparada</h3>
+                    <p class="lang-es">Bebida refrescante preparada con frutas y chile.</p>
+                    <p class="lang-en">Refreshing drink prepared with fruit and chili.</p>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="agua_mineral.jpg" alt="Agua Mineral Preparada">
+                <div class="menu-details">
+                    <h3>Agua Mineral Preparada</h3>
+                    <p class="lang-es">Topo Chico o agua mineral con limón, sal y chile.</p>
+                    <p class="lang-en">Topo Chico or mineral water with lime, salt, and chili.</p>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="chicharrones_preparados.jpg" alt="Chicharrones Preparados">
+                <div class="menu-details">
+                    <h3>Chicharrones Preparados</h3>
+                    <p class="lang-es">Chicharrón crujiente con repollo, cueritos, crema y salsa.</p>
+                    <p class="lang-en">Crispy pork rind with cabbage, pickled pork skin, cream, and salsa.</p>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="pina_colada.jpg" alt="Pina Colada">
+                <div class="menu-details">
+                    <h3 class="lang-es">Piña Colada</h3>
+                    <h3 class="lang-en">Piña Colada</h3>
+                    <p class="lang-es">Bebida cremosa de coco y piña (Sin Alcohol).</p>
+                    <p class="lang-en">Creamy coconut and pineapple drink (Non-Alcoholic).</p>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="raspado_guayaba.jpg" alt="Raspado de Guayaba">
+                <div class="menu-details">
+                    <h3 class="lang-es">Raspado de Guayaba</h3>
+                    <h3 class="lang-en">Guava Shaved Ice</h3>
+                    <p class="lang-es">Sabor natural de guayaba fresca.</p>
+                    <p class="lang-en">Natural fresh guava flavor.</p>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="raspado_coco.jpg" alt="Raspado de Coco">
+                <div class="menu-details">
+                    <h3 class="lang-es">Raspado de Coco</h3>
+                    <h3 class="lang-en">Coconut Shaved Ice</h3>
+                    <p class="lang-es">Sabor cremoso de coco natural.</p>
+                    <p class="lang-en">Creamy natural coconut flavor.</p>
+                </div>
+            </div>
+
         </div>
     </section>
 

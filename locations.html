@@ -36,9 +36,9 @@
         }
         .lang-en { display: none; } body.english-active .lang-es { display: none; } body.english-active .lang-en { display: block; }
         
-        /* Header & Nav (Same as index) */
+        /* Header */
         header { background-color: var(--secondary-matte); padding: 1rem; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
-        .logo-container { display: flex; align-items: center; z-index: 1001; }
+        .logo-link { display: flex; align-items: center; text-decoration: none; z-index: 1001; }
         .logo-img { height: 60px; width: 60px; margin-right: 10px; border-radius: 50%; border: 2px solid var(--primary-matte); background-image: url('IMG_6925.jpg'); background-position: center; background-size: 150%; }
         .site-title { color: var(--primary-matte); margin: 0; font-size: 1.5rem; }
         
@@ -56,27 +56,88 @@
             nav a { margin: 15px 0; font-size: 1.2rem; display: block; width: 100%; text-align: center; }
         }
 
-        /* Location Specific Styles */
+        /* Location Styles */
         .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
-        
-        /* Updated Location Cards for Dark Theme */
         .location-card { 
-            background: var(--bg-white); /* Keep white for contrast */
+            background: var(--bg-white); 
             border-radius: 12px; 
             overflow: hidden; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
             margin-bottom: 3rem; 
             border-left: 10px solid var(--secondary-matte);
-            color: var(--text-dark); /* Dark text inside white card */
+            color: var(--text-dark); 
         }
         .location-map { width: 100%; height: 300px; object-fit: cover; }
         .location-info { padding: 2rem; }
         .location-info h2 { color: var(--secondary-matte); margin-top: 0; margin-bottom: 0.5rem; }
-        .address { font-size: 1.3rem; font-weight: bold; margin-bottom: 0.5rem; }
+        
+        /* --- NEW ADDRESS STYLES --- */
+        .address-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+        }
+        /* Styled Google Maps Link */
+        .address-link {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+            flex-grow: 1;
+        }
+        .address-link:hover {
+            color: var(--accent-matte);
+            text-decoration: underline;
+        }
+
+        /* Copy Button & Tooltip Container */
+        .copy-btn-container {
+            position: relative;
+            display: inline-block;
+        }
+        /* Copy Button Styling */
+        .copy-btn {
+            background: none;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .copy-btn:hover { transform: scale(1.1); }
+        .copy-btn img { width: 24px; height: 24px; vertical-align: middle; }
+
+        /* "Copied!" Tooltip Popup */
+        .copy-tooltip {
+            visibility: hidden;
+            width: 70px;
+            background-color: var(--secondary-matte);
+            color: var(--text-main);
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 120%; /* Position above button */
+            left: 50%;
+            margin-left: -35px; /* Center it */
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            pointer-events: none;
+        }
+        /* Class added by JS to show tooltip */
+        .copy-btn-container.show-tooltip .copy-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        /* -------------------------- */
+
         .details { color: #666; font-style: italic; margin-bottom: 1rem; }
         .hours { background-color: #eee; padding: 10px; border-radius: 5px; display: inline-block; font-weight: bold; color: var(--secondary-matte); border: 1px solid var(--secondary-matte); }
 
-        /* Coming Soon Section */
+        /* Coming Soon */
         .coming-soon { background: linear-gradient(135deg, #C0392B, #922B21); color: white; padding: 3rem; text-align: center; border-radius: 12px; margin-bottom: 3rem; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.4); border: 3px solid var(--primary-matte);}
         .coming-soon h2 { font-size: 2.5rem; color: var(--primary-matte); margin-bottom: 1rem; }
         .coming-soon p { font-size: 1.2rem; }
@@ -88,10 +149,11 @@
 </head>
 <body>
     <header>
-        <div class="logo-container">
+        <a href="index.html" class="logo-link">
             <div class="logo-img"></div> 
             <h1 class="site-title">Elotes El Mexicano 07</h1>
-        </div>
+        </a>
+
         <div class="hamburger" id="hamburger">
             <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         </div>
@@ -121,12 +183,23 @@
             <div class="location-info">
                 <h2 class="lang-es">Ubicación Irving</h2>
                 <h2 class="lang-en">Irving Location</h2>
-                <div class="address">1423 N Belt Line Rd, Irving, TX 75061</div>
+                
+                <div class="address-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=1523+N+Belt+Line+Rd,+Irving,+TX+75061" target="_blank" class="address-link">
+                        1523 N Belt Line Rd, Irving, TX 75061
+                    </a>
+                    <div class="copy-btn-container">
+                        <button class="copy-btn" data-address="1523 N Belt Line Rd, Irving, TX 75061" title="Copy Address">
+                            <img src="copy_symbol.png" alt="Copy to Clipboard">
+                        </button>
+                        <span class="copy-tooltip">Copied!</span>
+                    </div>
+                </div>
                 <div class="details lang-es">Afuera de Azteca Meat Market, junto a la entrada.</div>
                 <div class="details lang-en">Outside Azteca Meat Market, next to the entrance.</div>
                 <div class="hours">
-                    <span class="lang-es">Horario: 12pm - 8pm</span>
-                    <span class="lang-en">Hours: 12pm - 8pm</span>
+                    <span class="lang-es">Horario: Diario 12pm - 8pm</span>
+                    <span class="lang-en">Hours: Daily 12pm - 8pm</span>
                 </div>
             </div>
         </div>
@@ -136,12 +209,23 @@
             <div class="location-info">
                 <h2 class="lang-es">Ubicación Dallas</h2>
                 <h2 class="lang-en">Dallas Location</h2>
-                <div class="address">1610 S Westmoreland Rd, Dallas, TX 75211</div>
-                <div class="details lang-es">Afuera de Savers Cost Plus Supermarket, junto a la entrada.</div>
+
+                 <div class="address-row">
+                     <a href="https://www.google.com/maps/search/?api=1&query=1610+S+Westmoreland+Rd,+Dallas,+TX+75211" target="_blank" class="address-link">
+                        1610 S Westmoreland Rd, Dallas, TX 75211
+                    </a>
+                    <div class="copy-btn-container">
+                         <button class="copy-btn" data-address="1610 S Westmoreland Rd, Dallas, TX 75211" title="Copy Address">
+                            <img src="copy_symbol.png" alt="Copy to Clipboard">
+                        </button>
+                        <span class="copy-tooltip">Copied!</span>
+                    </div>
+                </div>
+                 <div class="details lang-es">Afuera de Savers Cost Plus Supermarket, junto a la entrada.</div>
                 <div class="details lang-en">Outside Savers Cost Plus Supermarket, next to the entrance.</div>
                 <div class="hours">
-                    <span class="lang-es">Horario: 12pm - 8pm</span>
-                    <span class="lang-en">Hours: 12pm - 8pm</span>
+                    <span class="lang-es">Horario: Diario 12pm - 8pm</span>
+                    <span class="lang-en">Hours: Daily 12pm - 8pm</span>
                 </div>
             </div>
         </div>
@@ -167,6 +251,7 @@
     </footer>
 
     <script>
+        // Language & Hamburger Logic
         const langToggleBtn = document.getElementById('langToggle');
         const body = document.body;
         const hamburger = document.getElementById('hamburger');
@@ -191,6 +276,28 @@
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
+        });
+
+        // --- NEW: Copy to Clipboard Logic ---
+        const copyButtons = document.querySelectorAll('.copy-btn');
+
+        copyButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Get address from data attribute
+                const address = btn.getAttribute('data-address');
+                // Use Clipboard API
+                navigator.clipboard.writeText(address).then(() => {
+                    // Show tooltip feedback
+                    const container = btn.parentElement;
+                    container.classList.add('show-tooltip');
+                    // Hide after 2 seconds
+                    setTimeout(() => {
+                        container.classList.remove('show-tooltip');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            });
         });
     </script>
 </body>
