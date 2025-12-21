@@ -200,11 +200,15 @@
             .footer-brand .logo-link { justify-content: center; }
         }
         
-        @media (max-width: 400px) {
+@media (max-width: 600px) {
             .location-info { padding: 1.5rem 1rem; } 
             .address-link { font-size: 1rem; } 
             .coming-soon { padding: 2rem 1rem; }
-            .coming-soon h2 { font-size: 1.8rem; word-wrap: break-word; } 
+            .coming-soon h2 { 
+                font-size: 1.8rem; 
+                word-wrap: break-word; 
+                hyphens: auto; /* Adds a hyphen if it really needs to break */
+            } 
         }
     </style>
 </head>
