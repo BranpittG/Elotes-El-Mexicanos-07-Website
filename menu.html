@@ -6,7 +6,10 @@
     <title>Elotes El Mexicano 07 | Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- DARK MATTE COLOR PALETTE (Global) --- */
+        /* --- GLOBAL RESET --- */
+        * { box-sizing: border-box; }
+
+        /* --- DARK MATTE COLOR PALETTE --- */
         :root {
             --primary-matte: #E3C565; 
             --secondary-matte: #2E5936; 
@@ -27,6 +30,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4 {
@@ -53,25 +57,81 @@
 
         .header-left { display: flex; align-items: center; gap: 15px; justify-self: start; }
         .logo-link { display: flex; align-items: center; text-decoration: none; }
-        .logo-img { height: 50px; width: 50px; border-radius: 50%; border: 2px solid var(--primary-matte); background-image: url('IMG_6925.jpg'); background-position: center; background-size: 150%; }
+        /* UPDATED IMAGE PATH BELOW */
+        .logo-img { height: 50px; width: 50px; border-radius: 50%; border: 2px solid var(--primary-matte); background-image: url('images/IMG_6925.jpg'); background-position: center; background-size: 150%; flex-shrink: 0; }
         .site-title { color: var(--primary-matte); margin-left: 10px; font-size: 1.2rem; }
-        .header-right { justify-self: end; }
-        .lang-switch-btn { background-color: var(--primary-matte); color: var(--secondary-matte); border: none; padding: 6px 0; width: 80px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
-
+        
+        /* Desktop Nav Styles */
         nav { display: flex; gap: 30px; justify-self: center; }
-        nav a { color: var(--text-main); text-decoration: none; font-weight: bold; transition: 0.3s; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; padding: 5px 10px; }
+        nav a { 
+            color: var(--text-main); 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: 0.3s; 
+            font-size: 1.1rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            padding: 5px 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
         nav a:hover { color: var(--primary-matte); transform: scale(1.05); }
         nav a.active-page { border: 2px solid #ff6666; border-radius: 5px; color: var(--primary-matte); }
+        .nav-icon { display: none; } /* Hide icons desktop */
+
+        .header-right { justify-self: end; }
+        .lang-switch-btn { background-color: var(--primary-matte); color: var(--secondary-matte); border: none; padding: 6px 0; width: 80px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
 
         .hamburger { display: none; cursor: pointer; }
         .bar { width: 25px; height: 3px; margin: 5px auto; background-color: var(--primary-matte); transition: 0.3s; }
         
+        /* --- MOBILE HEADER & DRAWER MENU --- */
         @media (max-width: 900px) {
             header { display: flex; justify-content: space-between; padding: 1rem; }
             header .site-title { display: none; }
             .hamburger { display: block; margin-right: 10px; }
-            nav { position: fixed; left: -100%; top: 70px; flex-direction: column; background-color: var(--secondary-matte); width: 100%; padding: 2rem 0; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.3); gap: 2rem; align-items: center; }
-            nav.active { left: 0; }
+            
+            nav { 
+                position: fixed; 
+                left: -100%; 
+                top: 70px; 
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 0; 
+                background-color: var(--bg-container); 
+                width: 75%; 
+                max-width: 300px; 
+                height: calc(100vh - 70px); 
+                padding: 0; 
+                transition: left 0.3s ease-in-out; 
+                box-shadow: 4px 0 15px rgba(0,0,0,0.5); 
+                border-right: 1px solid var(--secondary-matte);
+                overflow-y: auto;
+            }
+            nav.active { left: 0; } 
+
+            nav a {
+                width: 100%;
+                padding: 1.5rem 2rem; 
+                border-bottom: 1px solid rgba(255,255,255,0.1); 
+                font-size: 1.1rem;
+                justify-content: flex-start; 
+            }
+            
+            .nav-icon { 
+                display: block; 
+                width: 24px; 
+                height: 24px; 
+                object-fit: contain;
+            }
+            
+            nav a.active-page {
+                border: none;
+                background-color: rgba(255, 255, 255, 0.05); 
+                border-left: 5px solid #ff6666; 
+                border-radius: 0;
+            }
         }
 
         /* Menu Styles */
@@ -79,46 +139,11 @@
         .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 2rem; border-bottom: 2px solid var(--primary-matte); display: inline-block; padding-bottom: 10px; }
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         
-        /* --- UPDATED MENU CARD STYLES --- */
-        /* These specific colors will NOT affect the navbar */
-        .menu-item { 
-            background: #2c2c2c; /* Dark background behind image */
-            border-radius: 12px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
-            /* This is the Gold/Yellow bottom border from your image */
-            border-bottom: 6px solid var(--primary-matte); 
-            display: flex; 
-            flex-direction: column; 
-        }
-        
-        .menu-item img { 
-            width: 100%; 
-            height: 280px; 
-            object-fit: cover; 
-            background-color: #2c2c2c; 
-            border-bottom: none; 
-        }
-        
-        .menu-details { 
-            /* Deep Matte Green background specific to cards */
-            background-color: #3E5C45; 
-            padding: 1.5rem; 
-            text-align: center; 
-            flex-grow: 1;
-        }
-        
-        .menu-details h3 { 
-            /* Soft Red/Clay color for Title */
-            color: #D3544E; 
-            margin-top: 0;
-            font-size: 1.3rem;
-        }
-        
-        .menu-details p {
-            /* White text for description */
-            color: #ffffff;
-        }
+        .menu-item { background: #2c2c2c; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.5); border-bottom: 6px solid var(--primary-matte); display: flex; flex-direction: column; }
+        .menu-item img { width: 100%; height: 280px; object-fit: cover; background-color: #2c2c2c; border-bottom: none; }
+        .menu-details { background-color: #3E5C45; padding: 1.5rem; text-align: center; flex-grow: 1; }
+        .menu-details h3 { color: #D3544E; margin-top: 0; font-size: 1.3rem; }
+        .menu-details p { color: #ffffff; }
         
         /* Flavors */
         .flavor-list-container { text-align: center; margin: 2rem auto; max-width: 800px; padding: 1rem; background-color: var(--bg-container); border-radius: 12px; border: 1px solid var(--secondary-matte); }
@@ -169,15 +194,33 @@
         </div>
 
         <nav id="nav-menu">
-            <span class="lang-es" style="display:flex; gap:30px;">
-                <a href="index.html">Inicio</a>
-                <a href="menu.html" class="active-page">Menú</a>
-                <a href="locations.html">Ubicaciones</a>
+            <span class="lang-es" style="display:flex; flex-direction: inherit; gap:inherit; align-items: inherit; width:100%;">
+                <a href="index.html">
+                    <img src="images/home_icon.png" alt="" class="nav-icon">
+                    Inicio
+                </a>
+                <a href="menu.html" class="active-page">
+                    <img src="images/menu_icon.png" alt="" class="nav-icon">
+                    Menú
+                </a>
+                <a href="locations.html">
+                    <img src="images/location_icon.png" alt="" class="nav-icon">
+                    Ubicaciones
+                </a>
             </span>
-            <span class="lang-en" style="display:none; gap:30px;">
-                <a href="index.html">Home</a>
-                <a href="menu.html" class="active-page">Menu</a>
-                <a href="locations.html">Locations</a>
+            <span class="lang-en" style="display:none; flex-direction: inherit; gap:inherit; align-items: inherit; width:100%;">
+                <a href="index.html">
+                    <img src="images/home_icon.png" alt="" class="nav-icon">
+                    Home
+                </a>
+                <a href="menu.html" class="active-page">
+                    <img src="images/menu_icon.png" alt="" class="nav-icon">
+                    Menu
+                </a>
+                <a href="locations.html">
+                    <img src="images/location_icon.png" alt="" class="nav-icon">
+                    Locations
+                </a>
             </span>
         </nav>
 
@@ -187,7 +230,7 @@
     </header>
 
     <div style="text-align: center; margin-top: 2rem; padding: 0 1rem;">
-        <img src="raspado_poster.PNG" alt="Raspados Poster" style="max-width: 40%; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 3px solid var(--primary-matte);">
+        <img src="images/raspado_poster.PNG" alt="Raspados Poster" style="max-width: 40%; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 3px solid var(--primary-matte);">
     </div>
 
     <div class="flavor-list-container">
@@ -222,7 +265,7 @@
 
         <div class="menu-grid">
             <div class="menu-item">
-                <img src="elote_vaso.jpg" alt="Elote en Vaso">
+                <img src="images/elote_vaso.jpg" alt="Elote en Vaso">
                 <div class="menu-details">
                     <h3 class="lang-es">Elote en Vaso (Esquites)</h3>
                     <h3 class="lang-en">Corn in a Cup (Esquites)</h3>
@@ -231,7 +274,7 @@
                 </div>
             </div>
             <div class="menu-item">
-                <img src="Elote_hot_cheeto.PNG" alt="Elote con Cheetos">
+                <img src="images/Elote_hot_cheeto.PNG" alt="Elote con Cheetos">
                 <div class="menu-details">
                     <h3 class="lang-es">Elote Revolcado (Hot Cheetos)</h3>
                     <h3 class="lang-en">Hot Cheetos Corn</h3>
@@ -240,7 +283,7 @@
                 </div>
             </div>
             <div class="menu-item">
-                <img src="raspado_chicle.PNG" alt="Raspado Azul">
+                <img src="images/raspado_chicle.PNG" alt="Raspado Azul">
                 <div class="menu-details">
                     <h3 class="lang-es">Raspado de Chicle</h3>
                     <h3 class="lang-en">Bubblegum Shaved Ice</h3>
@@ -249,7 +292,7 @@
                 </div>
             </div>
             <div class="menu-item">
-                <img src="mangonada.PNG" alt="Raspado de Mango">
+                <img src="images/mangonada.PNG" alt="Raspado de Mango">
                 <div class="menu-details">
                     <h3 class="lang-es">Mangonada / Raspado de Mango</h3>
                     <h3 class="lang-en">Mangonada / Mango Shaved Ice</h3>
@@ -258,7 +301,7 @@
                 </div>
             </div>
             <div class="menu-item">
-                <img src="Tostilocos.PNG" alt="Tostilocos">
+                <img src="images/Tostilocos.PNG" alt="Tostilocos">
                 <div class="menu-details">
                     <h3>Tostilocos</h3>
                     <p class="lang-es">Tostitos salsa verde con elote, queso y jalapeños.</p>
@@ -266,7 +309,7 @@
                 </div>
             </div>
              <div class="menu-item">
-                <img src="maruchan.PNG" alt="Maruchan Preparada">
+                <img src="images/maruchan.PNG" alt="Maruchan Preparada">
                 <div class="menu-details">
                     <h3>Maruchan Preparada</h3>
                     <p class="lang-es">Sopa Maruchan con elote y queso.</p>
@@ -275,7 +318,7 @@
             </div>
 
             <div class="menu-item">
-                <img src="sangria_preparada.jpg" alt="Sangria Preparada">
+                <img src="images/sangria_preparada.jpg" alt="Sangria Preparada">
                 <div class="menu-details">
                     <h3>Sangría Preparada</h3>
                     <p class="lang-es">Bebida refrescante preparada con frutas y chile.</p>
@@ -284,7 +327,7 @@
             </div>
 
             <div class="menu-item">
-                <img src="agua_mineral.jpg" alt="Agua Mineral Preparada">
+                <img src="images/agua_mineral.jpg" alt="Agua Mineral Preparada">
                 <div class="menu-details">
                     <h3>Agua Mineral Preparada</h3>
                     <p class="lang-es">Topo Chico o agua mineral con limón, sal y chile.</p>
@@ -293,7 +336,7 @@
             </div>
 
             <div class="menu-item">
-                <img src="chicharrones_preparados.jpg" alt="Chicharrones Preparados">
+                <img src="images/chicharrones_preparados.jpg" alt="Chicharrones Preparados">
                 <div class="menu-details">
                     <h3>Chicharrones Preparados</h3>
                     <p class="lang-es">Chicharrón crujiente con repollo, cueritos, crema y salsa.</p>
@@ -302,7 +345,7 @@
             </div>
 
             <div class="menu-item">
-                <img src="pina_colada.jpg" alt="Pina Colada">
+                <img src="images/pina_colada.jpg" alt="Pina Colada">
                 <div class="menu-details">
                     <h3 class="lang-es">Piña Colada</h3>
                     <h3 class="lang-en">Piña Colada</h3>
@@ -312,7 +355,7 @@
             </div>
 
             <div class="menu-item">
-                <img src="raspado_guayaba.jpg" alt="Raspado de Guayaba">
+                <img src="images/raspado_guayaba.jpg" alt="Raspado de Guayaba">
                 <div class="menu-details">
                     <h3 class="lang-es">Raspado de Guayaba</h3>
                     <h3 class="lang-en">Guava Shaved Ice</h3>
@@ -322,7 +365,7 @@
             </div>
 
             <div class="menu-item">
-                <img src="raspado_coco.jpg" alt="Raspado de Coco">
+                <img src="images/raspado_coco.jpg" alt="Raspado de Coco">
                 <div class="menu-details">
                     <h3 class="lang-es">Raspado de Coco</h3>
                     <h3 class="lang-en">Coconut Shaved Ice</h3>

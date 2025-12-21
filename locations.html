@@ -6,6 +6,9 @@
     <title>Elotes El Mexicano 07 | Locations</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* --- GLOBAL RESET --- */
+        * { box-sizing: border-box; }
+
         /* --- DARK MATTE COLOR PALETTE --- */
         :root {
             --primary-matte: #E3C565; 
@@ -26,6 +29,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4 {
@@ -52,39 +56,113 @@
 
         .header-left { display: flex; align-items: center; gap: 15px; justify-self: start; }
         .logo-link { display: flex; align-items: center; text-decoration: none; }
-        .logo-img { height: 50px; width: 50px; border-radius: 50%; border: 2px solid var(--primary-matte); background-image: url('IMG_6925.jpg'); background-position: center; background-size: 150%; }
+        /* UPDATED IMAGE PATH BELOW */
+        .logo-img { height: 50px; width: 50px; border-radius: 50%; border: 2px solid var(--primary-matte); background-image: url('images/IMG_6925.jpg'); background-position: center; background-size: 150%; flex-shrink: 0; }
         .site-title { color: var(--primary-matte); margin-left: 10px; font-size: 1.2rem; }
         .header-right { justify-self: end; }
         .lang-switch-btn { background-color: var(--primary-matte); color: var(--secondary-matte); border: none; padding: 6px 0; width: 80px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
 
+        /* Desktop Nav Styles */
         nav { display: flex; gap: 30px; justify-self: center; }
-        nav a { color: var(--text-main); text-decoration: none; font-weight: bold; transition: 0.3s; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; padding: 5px 10px; }
+        nav a { 
+            color: var(--text-main); 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: 0.3s; 
+            font-size: 1.1rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            padding: 5px 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
         nav a:hover { color: var(--primary-matte); transform: scale(1.05); }
+        /* Desktop Active State (Box) */
         nav a.active-page { border: 2px solid #ff6666; border-radius: 5px; color: var(--primary-matte); }
+        
+        /* Hide icons on desktop */
+        .nav-icon { display: none; }
 
         .hamburger { display: none; cursor: pointer; }
         .bar { width: 25px; height: 3px; margin: 5px auto; background-color: var(--primary-matte); transition: 0.3s; }
         
+        /* --- MOBILE HEADER & DRAWER MENU --- */
         @media (max-width: 900px) {
             header { display: flex; justify-content: space-between; padding: 1rem; }
             header .site-title { display: none; }
             .hamburger { display: block; margin-right: 10px; }
-            nav { position: fixed; left: -100%; top: 70px; flex-direction: column; background-color: var(--secondary-matte); width: 100%; padding: 2rem 0; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.3); gap: 2rem; align-items: center; }
-            nav.active { left: 0; }
+            
+            nav { 
+                position: fixed; 
+                left: -100%; 
+                top: 70px; 
+                flex-direction: column; 
+                align-items: flex-start; /* Align contents to the left */
+                gap: 0; 
+                background-color: var(--bg-container); 
+                width: 75%; 
+                max-width: 300px; 
+                height: calc(100vh - 70px); 
+                padding: 0; 
+                transition: left 0.3s ease-in-out; 
+                box-shadow: 4px 0 15px rgba(0,0,0,0.5); 
+                border-right: 1px solid var(--secondary-matte);
+                overflow-y: auto;
+            }
+            nav.active { left: 0; } 
+
+            nav a {
+                width: 100%;
+                padding: 1.5rem 2rem; 
+                border-bottom: 1px solid rgba(255,255,255,0.1); 
+                font-size: 1.1rem;
+                justify-content: flex-start; 
+                display: flex; /* Ensure flex for icon alignment */
+                align-items: center;
+                gap: 15px;
+            }
+            
+            /* Show icons on mobile */
+            .nav-icon { 
+                display: block; 
+                width: 24px; 
+                height: 24px; 
+                object-fit: contain;
+            }
+            
+            /* Override Active Page for Mobile (Side Line, No Box) */
+            nav a.active-page {
+                border: none;
+                background-color: rgba(255, 255, 255, 0.05); 
+                border-left: 5px solid #ff6666; 
+                border-bottom: 1px solid rgba(255,255,255,0.1); /* Keep the separator */
+                border-radius: 0;
+            }
         }
 
         /* Location Styles */
         .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
-        .location-card { background: var(--bg-white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.5); margin-bottom: 3rem; border-left: 10px solid var(--secondary-matte); color: var(--text-dark); }
+        .location-card { background: var(--secondary-matte); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.5); margin-bottom: 3rem; border-left: 10px solid var(--primary-matte); color: var(--text-dark); }
         .location-map { width: 100%; height: 300px; object-fit: cover; }
         .location-info { padding: 2rem; }
         .location-info h2 { color: var(--secondary-matte); margin-top: 0; margin-bottom: 0.5rem; }
         
-        .address-row { display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem; }
-        .address-link { font-size: 1.3rem; font-weight: bold; color: var(--text-dark); text-decoration: none; transition: color 0.3s; flex-grow: 1; }
+        .address-row { display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem; flex-wrap: wrap; }
+        
+        .address-link { 
+            font-size: 1.3rem; 
+            font-weight: bold; 
+            color: var(--bg-white); 
+            text-decoration: none; 
+            transition: color 0.3s; 
+            flex: 1 1 auto; 
+            word-break: break-word; 
+            min-width: 200px; 
+        }
         .address-link:hover { color: var(--accent-matte); text-decoration: underline; }
 
-        .copy-btn-container { position: relative; display: inline-block; }
+        .copy-btn-container { position: relative; display: inline-block; flex-shrink: 0; }
         .copy-btn { background: none; border: none; padding: 5px; cursor: pointer; transition: transform 0.2s; }
         .copy-btn:hover { transform: scale(1.1); }
         .copy-btn img { width: 24px; height: 24px; vertical-align: middle; }
@@ -92,7 +170,7 @@
         .copy-tooltip { visibility: hidden; width: 70px; background-color: var(--secondary-matte); color: var(--text-main); text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; bottom: 120%; left: 50%; margin-left: -35px; opacity: 0; transition: opacity 0.3s; font-size: 0.8rem; pointer-events: none; }
         .copy-btn-container.show-tooltip .copy-tooltip { visibility: visible; opacity: 1; }
 
-        .details { color: #666; font-style: italic; margin-bottom: 1rem; }
+        .details { color: #E3C565; font-style: italic; margin-bottom: 1rem; }
         .hours { background-color: #eee; padding: 10px; border-radius: 5px; display: inline-block; font-weight: bold; color: var(--secondary-matte); border: 1px solid var(--secondary-matte); }
 
         .coming-soon { background: linear-gradient(135deg, #C0392B, #922B21); color: white; padding: 3rem; text-align: center; border-radius: 12px; margin-bottom: 3rem; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.4); border: 3px solid var(--primary-matte);}
@@ -115,22 +193,18 @@
         .footer-bottom { text-align: center; font-size: 0.85rem; color: #777; }
 
         @media (max-width: 900px) {
-            /* CENTERED FOOTER FIX */
-            .footer-content { 
-                flex-direction: column; 
-                text-align: center; 
-                align-items: center; 
-                gap: 3rem; 
-            }
+            .footer-content { flex-direction: column; text-align: center; align-items: center; gap: 3rem; }
             .footer-nav { text-align: center; }
-            .footer-links { 
-                justify-content: center; 
-                flex-direction: column; 
-                align-items: center; 
-                gap: 15px; 
-            }
+            .footer-links { justify-content: center; flex-direction: column; align-items: center; gap: 15px; }
             .footer-brand .site-title { display: block !important; margin: 10px 0; }
             .footer-brand .logo-link { justify-content: center; }
+        }
+        
+        @media (max-width: 400px) {
+            .location-info { padding: 1.5rem 1rem; } 
+            .address-link { font-size: 1rem; } 
+            .coming-soon { padding: 2rem 1rem; }
+            .coming-soon h2 { font-size: 1.8rem; word-wrap: break-word; } 
         }
     </style>
 </head>
@@ -147,15 +221,33 @@
         </div>
 
         <nav id="nav-menu">
-            <span class="lang-es" style="display:flex; gap:30px;">
-                <a href="index.html">Inicio</a>
-                <a href="menu.html">Menú</a>
-                <a href="locations.html" class="active-page">Ubicaciones</a>
+            <span class="lang-es" style="display:flex; flex-direction: inherit; gap:inherit; align-items: inherit; width:100%;">
+                <a href="index.html">
+                    <img src="images/home_icon.png" alt="" class="nav-icon">
+                    Inicio
+                </a>
+                <a href="menu.html">
+                    <img src="images/menu_icon.png" alt="" class="nav-icon">
+                    Menú
+                </a>
+                <a href="locations.html" class="active-page">
+                    <img src="images/location_icon.png" alt="" class="nav-icon">
+                    Ubicaciones
+                </a>
             </span>
-            <span class="lang-en" style="display:none; gap:30px;">
-                <a href="index.html">Home</a>
-                <a href="menu.html">Menu</a>
-                <a href="locations.html" class="active-page">Locations</a>
+            <span class="lang-en" style="display:none; flex-direction: inherit; gap:inherit; align-items: inherit; width:100%;">
+                <a href="index.html">
+                    <img src="images/home_icon.png" alt="" class="nav-icon">
+                    Home
+                </a>
+                <a href="menu.html">
+                    <img src="images/menu_icon.png" alt="" class="nav-icon">
+                    Menu
+                </a>
+                <a href="locations.html" class="active-page">
+                    <img src="images/location_icon.png" alt="" class="nav-icon">
+                    Locations
+                </a>
             </span>
         </nav>
 
@@ -171,7 +263,7 @@
         </h1>
 
         <div class="location-card">
-            <img src="Location_1.jpg" alt="Irving Location Map" class="location-map">
+            <img src="images/Location_1.jpg" alt="Irving Location Map" class="location-map">
             <div class="location-info">
                 <h2 class="lang-es">Ubicación Irving</h2>
                 <h2 class="lang-en">Irving Location</h2>
@@ -182,7 +274,7 @@
                     </a>
                     <div class="copy-btn-container">
                         <button class="copy-btn" data-address="1523 N Belt Line Rd, Irving, TX 75061" title="Copy Address">
-                            <img src="copy_symbol.png" alt="Copy to Clipboard">
+                            <img src="images/copy_symbol.png" alt="Copy to Clipboard">
                         </button>
                         <span class="copy-tooltip">Copied!</span>
                     </div>
@@ -197,7 +289,7 @@
         </div>
 
         <div class="location-card">
-            <img src="Location_2.jpg" alt="Dallas Location Map" class="location-map">
+            <img src="images/Location_2.jpg" alt="Dallas Location Map" class="location-map">
             <div class="location-info">
                 <h2 class="lang-es">Ubicación Dallas</h2>
                 <h2 class="lang-en">Dallas Location</h2>
@@ -208,7 +300,7 @@
                     </a>
                     <div class="copy-btn-container">
                          <button class="copy-btn" data-address="1610 S Westmoreland Rd, Dallas, TX 75211" title="Copy Address">
-                            <img src="copy_symbol.png" alt="Copy to Clipboard">
+                            <img src="images/copy_symbol.png" alt="Copy to Clipboard">
                         </button>
                         <span class="copy-tooltip">Copied!</span>
                     </div>

@@ -6,6 +6,9 @@
     <title>Elotes El Mexicano 07 | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* --- GLOBAL RESET --- */
+        * { box-sizing: border-box; }
+
         /* --- DARK MATTE COLOR PALETTE --- */
         :root {
             --primary-matte: #E3C565; 
@@ -25,6 +28,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4 {
@@ -54,13 +58,30 @@
 
         .header-left { display: flex; align-items: center; gap: 15px; justify-self: start; }
         .logo-link { display: flex; align-items: center; text-decoration: none; }
-        .logo-img { height: 50px; width: 50px; border-radius: 50%; border: 2px solid var(--primary-matte); background-image: url('IMG_6925.jpg'); background-position: center; background-size: 150%; }
+        /* UPDATED IMAGE PATH BELOW */
+        .logo-img { height: 50px; width: 50px; border-radius: 50%; border: 2px solid var(--primary-matte); background-image: url('images/IMG_6925.jpg'); background-position: center; background-size: 150%; flex-shrink: 0; }
         .site-title { color: var(--primary-matte); margin-left: 10px; font-size: 1.2rem; }
         
+        /* Desktop Nav Styles */
         nav { display: flex; gap: 30px; justify-self: center; }
-        nav a { color: var(--text-main); text-decoration: none; font-weight: bold; transition: 0.3s; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; padding: 5px 10px; }
+        nav a { 
+            color: var(--text-main); 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: 0.3s; 
+            font-size: 1.1rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            padding: 5px 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; /* Gap for desktop if icons show, though usually hidden on desktop */
+        }
         nav a:hover { color: var(--primary-matte); transform: scale(1.05); }
         nav a.active-page { border: 2px solid #ff6666; border-radius: 5px; color: var(--primary-matte); }
+        
+        /* Hide Icons on Desktop to keep it clean */
+        .nav-icon { display: none; }
 
         .header-right { justify-self: end; }
         .lang-switch-btn { background-color: var(--primary-matte); color: var(--secondary-matte); border: none; padding: 6px 0; width: 80px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
@@ -68,61 +89,79 @@
         .hamburger { display: none; cursor: pointer; }
         .bar { width: 25px; height: 3px; margin: 5px auto; background-color: var(--primary-matte); transition: 0.3s; }
         
-        /* Mobile Header Adjustments */
+        /* --- MOBILE HEADER & DRAWER MENU --- */
         @media (max-width: 900px) {
             header { display: flex; justify-content: space-between; padding: 1rem; }
             header .site-title { display: none; }
             .hamburger { display: block; margin-right: 10px; }
-            nav { position: fixed; left: -100%; top: 70px; flex-direction: column; background-color: var(--secondary-matte); width: 100%; padding: 2rem 0; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.3); gap: 2rem; align-items: center; }
-            nav.active { left: 0; }
+            
+            /* Modern Side Drawer Logic */
+            nav { 
+                position: fixed; 
+                left: -100%; /* Initially hidden off-screen */
+                top: 70px; /* Starts below header */
+                
+                /* Layout */
+                flex-direction: column; 
+                align-items: flex-start; /* Align text to left */
+                gap: 0; /* Remove gap, use padding/border instead */
+                
+                /* Design - New "Drawer" Look */
+                background-color: var(--bg-container); /* Dark Grey Drawer */
+                width: 75%; /* Only takes up 75% of screen */
+                max-width: 300px; /* Don't get too wide on tablets */
+                height: calc(100vh - 70px); 
+                
+                /* Polish */
+                padding: 0; 
+                transition: left 0.3s ease-in-out; 
+                box-shadow: 4px 0 15px rgba(0,0,0,0.5); /* Shadow on the right side */
+                border-right: 1px solid var(--secondary-matte);
+                overflow-y: auto;
+            }
+            nav.active { left: 0; } /* Slide in */
+
+            /* Mobile Link Styling */
+            nav a {
+                width: 100%;
+                padding: 1.5rem 2rem; /* Large touch targets */
+                border-bottom: 1px solid rgba(255,255,255,0.1); /* Separator lines */
+                font-size: 1.1rem;
+                justify-content: flex-start; /* Align content left */
+            }
+            
+            /* Show Icons on Mobile */
+            .nav-icon { 
+                display: block; 
+                width: 24px; 
+                height: 24px; 
+                object-fit: contain;
+                /* Optional: Filter to make icons white or yellow if needed, usually PNGs are colored */
+            }
+            
+            /* Remove the red outline box on mobile for cleaner list look, or keep it. 
+               Let's keep the text color highlight but remove border for cleaner list flow */
+            nav a.active-page {
+                border: none;
+                background-color: rgba(255, 255, 255, 0.05); /* Slight highlight background */
+                border-left: 5px solid #ff6666; /* Left accent instead of box */
+                border-radius: 0;
+            }
         }
 
         /* Hero */
-        .hero { background-image: linear-gradient(rgba(26, 26, 26, 0.6), rgba(26, 26, 26, 0.6)), url('IMG_6912.jpg'); background-size: cover; background-position: center; height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--text-main); }
+        /* UPDATED IMAGE PATH BELOW */
+        .hero { background-image: linear-gradient(rgba(26, 26, 26, 0.6), rgba(26, 26, 26, 0.6)), url('images/IMG_6912.jpg'); background-size: cover; background-position: center; height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--text-main); padding: 0 1rem; }
         .hero-content h1 { font-size: 3rem; color: var(--primary-matte); text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
         .btn-main { background-color: var(--accent-matte); color: var(--text-main); padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 1.2rem; display: inline-block; margin-top: 20px; transition: 0.3s; border: none; }
         .btn-main:hover { background-color: #A93226; transform: translateY(-3px); cursor: pointer;}
 
-        /* --- NEW: FLAVOR STRIP ANIMATION --- */
-        .flavor-strip-container {
-            width: 100%;
-            overflow: hidden;
-            background-color: var(--bg-container);
-            padding: 10px 0;
-            border-bottom: 2px solid var(--secondary-matte);
-            margin-top: 2rem; /* Spacing from hero */
-            margin-bottom: -2rem; /* Pull closer to About section */
-            position: relative;
-            z-index: 10;
-        }
-
-        .flavor-track {
-            display: flex;
-            width: max-content; /* Allows track to be as wide as content */
-            animation: scroll 30s linear infinite; /* The moving magic */
-        }
-
-        .flavor-track img {
-            height: 120px; /* Nav bar size height */
-            width: auto;
-            margin: 0 10px;
-            border-radius: 8px;
-            border: 2px solid var(--primary-matte);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            object-fit: cover;
-        }
-
-        /* Animation Keyframes */
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Moves half way (since we duplicate images) */
-        }
-
-        /* Pause on hover for better viewing */
-        .flavor-strip-container:hover .flavor-track {
-            animation-play-state: paused;
-        }
-
+        /* Flavor Strip */
+        .flavor-strip-container { width: 100%; overflow: hidden; background-color: var(--bg-container); padding: 10px 0; border-bottom: 2px solid var(--secondary-matte); margin-top: 2rem; margin-bottom: -2rem; position: relative; z-index: 10; }
+        .flavor-track { display: flex; width: max-content; animation: scroll 60s linear infinite; }
+        .flavor-track img { height: 120px; width: auto; margin: 0 10px; border-radius: 8px; border: 2px solid var(--primary-matte); box-shadow: 0 2px 5px rgba(0,0,0,0.3); object-fit: cover; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .flavor-strip-container:hover .flavor-track { animation-play-state: paused; }
 
         /* Sections */
         .dark-section-container { max-width: 900px; margin: 4rem auto; padding: 2.5rem; background-color: var(--bg-container); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); border-top: 5px solid var(--secondary-matte); }
@@ -163,6 +202,7 @@
             .footer-brand .site-title { display: block !important; margin: 10px 0; }
             .footer-brand .logo-link { justify-content: center; }
         }
+        @media (max-width: 400px) { .hero-content h1 { font-size: 2rem; } .section-title { font-size: 1.8rem; } }
     </style>
 </head>
 <body>
@@ -178,15 +218,33 @@
         </div>
 
         <nav id="nav-menu">
-            <span class="lang-es" style="display:flex; gap:30px;">
-                <a href="index.html" class="active-page">Inicio</a>
-                <a href="menu.html">Menú</a>
-                <a href="locations.html">Ubicaciones</a>
+            <span class="lang-es" style="display:flex; flex-direction: inherit; gap:inherit; align-items: inherit; width:100%;">
+                <a href="index.html" class="active-page">
+                    <img src="images/home_icon.png" alt="" class="nav-icon">
+                    Inicio
+                </a>
+                <a href="menu.html">
+                    <img src="images/menu_icon.png" alt="" class="nav-icon">
+                    Menú
+                </a>
+                <a href="locations.html">
+                    <img src="images/location_icon.png" alt="" class="nav-icon">
+                    Ubicaciones
+                </a>
             </span>
-            <span class="lang-en" style="display:none; gap:30px;">
-                <a href="index.html" class="active-page">Home</a>
-                <a href="menu.html">Menu</a>
-                <a href="locations.html">Locations</a>
+            <span class="lang-en" style="display:none; flex-direction: inherit; gap:inherit; align-items: inherit; width:100%;">
+                <a href="index.html" class="active-page">
+                    <img src="images/home_icon.png" alt="" class="nav-icon">
+                    Home
+                </a>
+                <a href="menu.html">
+                    <img src="images/menu_icon.png" alt="" class="nav-icon">
+                    Menu
+                </a>
+                <a href="locations.html">
+                    <img src="images/location_icon.png" alt="" class="nav-icon">
+                    Locations
+                </a>
             </span>
         </nav>
 
@@ -210,45 +268,11 @@
 
     <div class="flavor-strip-container">
         <div class="flavor-track">
-            <img src="elote_vaso.jpg" alt="Elote en Vaso">
-            <img src="Elote_hot_cheeto.PNG" alt="Elote Cheetos">
-            <img src="raspado_chicle.PNG" alt="Raspado Azul">
-            <img src="Tostilocos.PNG" alt="Tostilocos">
-            <img src="mangonada.PNG" alt="Mangonada">
-            <img src="frontcart.jpg" alt="Elote Entero">
-            <img src="raspado_coco.jpg" alt="Raspado">
-            <img src="maruchan.PNG" alt="Maruchan">
-            <img src="raspado_guayaba.jpg" alt="Raspado">
-            
-            <img src="elote_vaso.jpg" alt="Elote en Vaso">
-            <img src="Elote_hot_cheeto.PNG" alt="Elote Cheetos">
-            <img src="raspado_chicle.PNG" alt="Raspado Azul">
-            <img src="Tostilocos.PNG" alt="Tostilocos">
-            <img src="mangonada.PNG" alt="Mangonada">
-            <img src="frontcart.jpg" alt="Elote Entero">
-            <img src="raspado_coco.jpg" alt="Raspado">
-            <img src="maruchan.PNG" alt="Maruchan">
-            <img src="raspado_guayaba.jpg" alt="Raspado">
+            <img src="images/elote_vaso.jpg" alt="Elote"><img src="images/Elote_hot_cheeto.PNG" alt="Cheetos"><img src="images/raspado_chicle.PNG" alt="Azul"><img src="images/Tostilocos.PNG" alt="Tostilocos"><img src="images/mangonada.PNG" alt="Mangonada"><img src="images/frontcart.jpg" alt="Elote"><img src="images/raspado_coco.jpg" alt="Raspado"><img src="images/maruchan.PNG" alt="Maruchan"><img src="images/raspado_mango.PNG" alt="Raspado">
+            <img src="images/elote_vaso.jpg" alt="Elote"><img src="images/Elote_hot_cheeto.PNG" alt="Cheetos"><img src="images/raspado_chicle.PNG" alt="Azul"><img src="images/Tostilocos.PNG" alt="Tostilocos"><img src="images/mangonada.PNG" alt="Mangonada"><img src="images/frontcart.jpg" alt="Elote"><img src="images/raspado_coco.jpg" alt="Raspado"><img src="images/maruchan.PNG" alt="Maruchan"><img src="images/raspado_mango.PNG" alt="Raspado">
+            <img src="images/elote_vaso.jpg" alt="Elote"><img src="images/Elote_hot_cheeto.PNG" alt="Cheetos"><img src="images/raspado_chicle.PNG" alt="Azul"><img src="images/Tostilocos.PNG" alt="Tostilocos"><img src="images/mangonada.PNG" alt="Mangonada"><img src="images/frontcart.jpg" alt="Elote"><img src="images/raspado_coco.jpg" alt="Raspado"><img src="images/maruchan.PNG" alt="Maruchan"><img src="images/raspado_mango.PNG" alt="Raspado">
+            <img src="images/elote_vaso.jpg" alt="Elote"><img src="images/Elote_hot_cheeto.PNG" alt="Cheetos"><img src="images/raspado_chicle.PNG" alt="Azul"><img src="images/Tostilocos.PNG" alt="Tostilocos"><img src="images/mangonada.PNG" alt="Mangonada"><img src="images/frontcart.jpg" alt="Elote"><img src="images/raspado_coco.jpg" alt="Raspado"><img src="images/maruchan.PNG" alt="Maruchan"><img src="images/raspado_mango.PNG" alt="Raspado">
 
-                        <img src="elote_vaso.jpg" alt="Elote en Vaso">
-            <img src="Elote_hot_cheeto.PNG" alt="Elote Cheetos">
-            <img src="raspado_chicle.PNG" alt="Raspado Azul">
-            <img src="Tostilocos.PNG" alt="Tostilocos">
-            <img src="mangonada.PNG" alt="Mangonada">
-            <img src="frontcart.jpg" alt="Elote Entero">
-            <img src="raspado_coco.jpg" alt="Raspado">
-            <img src="maruchan.PNG" alt="Maruchan">
-            <img src="raspado_guayaba.jpg" alt="Raspado">
-
-                        <img src="elote_vaso.jpg" alt="Elote en Vaso">
-            <img src="Elote_hot_cheeto.PNG" alt="Elote Cheetos">
-            <img src="raspado_chicle.PNG" alt="Raspado Azul">
-            <img src="Tostilocos.PNG" alt="Tostilocos">
-            <img src="mangonada.PNG" alt="Mangonada">
-            <img src="frontcart.jpg" alt="Elote Entero">
-            <img src="raspado_coco.jpg" alt="Raspado">
-            <img src="maruchan.PNG" alt="Maruchan">
-            <img src="raspado_guayaba.jpg" alt="Raspado">
         </div>
     </div>
 
@@ -259,21 +283,13 @@
         </h2>
         <div class="about-container">
             <div class="about-text">
-                <p class="lang-es">
-                    Somos un negocio familiar dedicado a traer los sabores auténticos de los antojitos callejeros mexicanos a nuestra comunidad en Texas. Comenzamos con un pequeño carrito y un gran sueño: compartir la alegría de un elote perfectamente preparado.
-                </p>
-                <p class="lang-en">
-                    We are a family business dedicated to bringing the authentic flavors of Mexican street snacks to our community in Texas. We started with a small cart and a big dream: to share the joy of a perfectly prepared elote.
-                </p>
-                <p class="lang-es">
-                    Utilizamos ingredientes frescos y recetas caseras, desde nuestras salsas especiales hasta nuestros raspados de fruta natural. ¡Gracias por ser parte de nuestra familia!
-                </p>
-                <p class="lang-en">
-                    We use fresh ingredients and homemade recipes, from our special sauces to our natural fruit shaved ice. Thank you for being part of our family!
-                </p>
+                <p class="lang-es">Somos un negocio familiar dedicado a traer los sabores auténticos de los antojitos callejeros mexicanos a nuestra comunidad en Texas. Comenzamos con un pequeño carrito y un gran sueño: compartir la alegría de un elote perfectamente preparado.</p>
+                <p class="lang-en">We are a family business dedicated to bringing the authentic flavors of Mexican street snacks to our community in Texas. We started with a small cart and a big dream: to share the joy of a perfectly prepared elote.</p>
+                <p class="lang-es">Utilizamos ingredientes frescos y recetas caseras, desde nuestras salsas especiales hasta nuestros raspados de fruta natural. ¡Gracias por ser parte de nuestra familia!</p>
+                <p class="lang-en">We use fresh ingredients and homemade recipes, from our special sauces to our natural fruit shaved ice. Thank you for being part of our family!</p>
             </div>
             <div class="about-image">
-                <img src="pushcart.jpg" alt="Elote en Vaso">
+                <img src="images/pushcart.jpg" alt="Elote en Vaso">
             </div>
         </div>
     </section>
@@ -287,12 +303,9 @@
             <span class="lang-es">¿Qué te pareció tu visita? ¿Tienes sugerencias para nuevos productos? ¡Queremos escucharte!</span>
             <span class="lang-en">How was your visit? Do you have suggestions for new items? We want to hear from you!</span>
         </p>
-        <form action="#" method="post" class="feedback-form">
+        <form action="https://formspree.io/f/mrezqdzy" method="post" class="feedback-form">
             <div class="form-group">
-                <label for="name">
-                    <span class="lang-es">Nombre:</span>
-                    <span class="lang-en">Name:</span>
-                </label>
+                <label for="name"><span class="lang-es">Nombre:</span><span class="lang-en">Name:</span></label>
                 <input type="text" id="name" name="name" required>
             </div>
             <div class="form-group">
@@ -300,10 +313,7 @@
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="visit-type">
-                    <span class="lang-es">Tipo de Comentario:</span>
-                    <span class="lang-en">Feedback Type:</span>
-                </label>
+                <label for="visit-type"><span class="lang-es">Tipo de Comentario:</span><span class="lang-en">Feedback Type:</span></label>
                  <select id="visit-type" name="visit-type">
                     <option value="review">Review / Reseña</option>
                     <option value="suggestion">Suggestion / Sugerencia</option>
@@ -311,10 +321,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="message">
-                    <span class="lang-es">Mensaje:</span>
-                    <span class="lang-en">Message:</span>
-                </label>
+                <label for="message"><span class="lang-es">Mensaje:</span><span class="lang-en">Message:</span></label>
                 <textarea id="message" name="message" rows="5" required></textarea>
             </div>
             <button type="submit" class="btn-main" style="width:100%; border:none;">
@@ -338,27 +345,20 @@
                     <a href="tel:9452300072">945-230-0072</a>
                 </div>
             </div>
-
             <div class="footer-nav">
                 <h4 class="lang-es">Navegación</h4>
                 <h4 class="lang-en">Navigation</h4>
                 <div class="footer-links">
                     <span class="lang-es">
-                        <a href="index.html">Inicio</a> | 
-                        <a href="menu.html">Menú</a> | 
-                        <a href="locations.html">Ubicaciones</a>
+                        <a href="index.html">Inicio</a> | <a href="menu.html">Menú</a> | <a href="locations.html">Ubicaciones</a>
                     </span>
                     <span class="lang-en">
-                        <a href="index.html">Home</a> | 
-                        <a href="menu.html">Menu</a> | 
-                        <a href="locations.html">Locations</a>
+                        <a href="index.html">Home</a> | <a href="menu.html">Menu</a> | <a href="locations.html">Locations</a>
                     </span>
                 </div>
             </div>
         </div>
-
         <hr class="footer-separator">
-
         <div class="footer-bottom">
             <p>© 2025 Elotes El Mexicano 07. All Rights Reserved.</p>
         </div>
@@ -397,7 +397,6 @@
         langToggleBtn.addEventListener('click', () => {
             body.classList.toggle('english-active');
             updateNavDisplay();
-            
             if (body.classList.contains('english-active')) {
                 langToggleBtn.textContent = 'Español';
                 localStorage.setItem('lang', 'en');
@@ -417,12 +416,10 @@
         
         window.addEventListener('scroll', function() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
             if (navMenu.classList.contains('active')) {
                 header.style.top = "0";
                 return;
             }
-
             if (scrollTop > lastScrollTop) {
                 header.style.top = "-100px";
             } else {
