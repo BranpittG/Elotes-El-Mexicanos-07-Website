@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elotes El Mexicano 07 | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
     <style>
         /* --- GLOBAL RESET --- */
         * { box-sizing: border-box; }
@@ -32,10 +33,25 @@
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Fredoka One', cursive;
+            font-family: "Spicy Rice", serif;
             letter-spacing: 1px;
             font-weight: 400;
             color: var(--primary-matte);
+
+            /* --- FIERY GRADIENT FROM IMAGE --- */
+            /* 1. Define the vertical gradient (Red-Orange top to Golden-Yellow bottom) */
+            background: linear-gradient(to bottom, #FFD700 10%, #FF4500 90%);
+            
+            /* 2. Clip the background to the shape of the text */
+            -webkit-background-clip: text;
+            background-clip: text;
+            
+            /* 3. Make the actual text transparent */
+            color: transparent;
+            -webkit-text-fill-color: transparent; 
+
+            /* Uncomment the next line if you want that outline effect: */
+            -webkit-text-stroke: 1px #2c2c2c; 
         }
         
         .lang-en { display: none; }
@@ -58,9 +74,8 @@
 
         .header-left { display: flex; align-items: center; gap: 15px; justify-self: start; }
         .logo-link { display: flex; align-items: center; text-decoration: none; }
-        /* UPDATED IMAGE PATH BELOW */
         .logo-img { height: 100px; width: 100px; border-radius: 50%; border: 2px solid var(--primary-matte); background-image: url('images/logo_3.png'); background-position: center; background-size: 120%; flex-shrink: 0; }
-        .site-title { color: var(--primary-matte); margin-left: 10px; font-size: 1.2rem; }
+        .site-title { color: var(--primary-matte); margin-left: 10px; font-size: 1.5rem; }
         
         /* Desktop Nav Styles */
         nav { display: flex; gap: 30px; justify-self: center; }
@@ -75,12 +90,11 @@
             padding: 5px 10px; 
             display: flex; 
             align-items: center; 
-            gap: 8px; /* Gap for desktop if icons show, though usually hidden on desktop */
+            gap: 8px; 
         }
         nav a:hover { color: var(--primary-matte); transform: scale(1.05); }
         nav a.active-page { border: 2px solid #ff6666; border-radius: 5px; color: var(--primary-matte); }
         
-        /* Hide Icons on Desktop to keep it clean */
         .nav-icon { display: none; }
 
         .header-right { justify-self: end; }
@@ -95,74 +109,64 @@
             header .site-title { display: none; }
             .hamburger { display: block; margin-right: 10px; }
             
-            /* Modern Side Drawer Logic */
             nav { 
                 position: fixed; 
-                left: -100%; /* Initially hidden off-screen */
-                top: 132px; /* Starts below header */
-                
-                /* Layout */
+                left: -100%; 
+                top: 132px; 
                 flex-direction: column; 
-                align-items: flex-start; /* Align text to left */
-                gap: 0; /* Remove gap, use padding/border instead */
-                
-                /* Design - New "Drawer" Look */
-                background-color: var(--bg-container); /* Dark Grey Drawer */
-                width: 75%; /* Only takes up 75% of screen */
-                max-width: 300px; /* Don't get too wide on tablets */
+                align-items: flex-start; 
+                gap: 0; 
+                background-color: var(--bg-container); 
+                width: 75%; 
+                max-width: 300px; 
                 height: calc(100vh - 70px); 
-                
-                /* Polish */
                 padding: 0; 
                 transition: left 0.3s ease-in-out; 
-                box-shadow: 4px 0 15px rgba(0,0,0,0.5); /* Shadow on the right side */
+                box-shadow: 4px 0 15px rgba(0,0,0,0.5); 
                 border-right: 1px solid var(--secondary-matte);
                 overflow-y: auto;
             }
-            nav.active { left: 0; } /* Slide in */
+            nav.active { left: 0; } 
 
-            /* Mobile Link Styling */
             nav a {
                 width: 100%;
-                padding: 1.5rem 2rem; /* Large touch targets */
-                border-bottom: 1px solid rgba(255,255,255,0.1); /* Separator lines */
+                padding: 1.5rem 2rem; 
+                border-bottom: 1px solid rgba(255,255,255,0.1); 
                 font-size: 1.1rem;
-                justify-content: flex-start; /* Align content left */
+                justify-content: flex-start; 
             }
             
-            /* Show Icons on Mobile */
             .nav-icon { 
                 display: block; 
                 width: 24px; 
                 height: 24px; 
                 object-fit: contain;
                 filter: var(--secondary-matte);
-                /* Optional: Filter to make icons white or yellow if needed, usually PNGs are colored */
             }
             
-            /* Remove the red outline box on mobile for cleaner list look, or keep it. 
-               Let's keep the text color highlight but remove border for cleaner list flow */
             nav a.active-page {
                 border: none;
-                background-color: rgba(255, 255, 255, 0.05); /* Slight highlight background */
-                border-left: 5px solid #ff6666; /* Left accent instead of box */
+                background-color: rgba(255, 255, 255, 0.05); 
+                border-left: 5px solid #ff6666; 
                 border-radius: 0;
             }
         }
 
         /* Hero */
-        /* UPDATED IMAGE PATH BELOW */
         .hero { background-image: linear-gradient(rgba(26, 26, 26, 0.6), rgba(26, 26, 26, 0.6)), url('images/menu_poster.jpg'); background-size: cover; background-position: center; height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--text-main); padding: 0 1rem; }
-        .hero-content h1 { font-size: 3rem; color: var(--primary-matte); text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero-content h1 { font-size: 3rem; color: var(--primary-matte); text-shadow: 2px 2px 4px rgba(127, 37, 131, 0.5); }
         .btn-main { background-color: var(--accent-matte); color: var(--text-main); padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 1.2rem; display: inline-block; margin-top: 20px; transition: 0.3s; border: none; }
         .btn-main:hover { background-color: #A93226; transform: translateY(-3px); cursor: pointer;}
 
         /* Flavor Strip */
         .flavor-strip-container { width: 100%; overflow: hidden; background-color: var(--bg-container); padding: 10px 0; border-bottom: 2px solid var(--secondary-matte); margin-top: 2rem; margin-bottom: -2rem; position: relative; z-index: 10; }
         .flavor-track { display: flex; width: max-content; animation: scroll 60s linear infinite; }
-        .flavor-track img { height: 120px; width: auto; margin: 0 10px; border-radius: 8px; border: 2px solid var(--primary-matte); box-shadow: 0 2px 5px rgba(0,0,0,0.3); object-fit: cover; }
+        
+        /* UPDATED: Added cursor: zoom-in */
+        .flavor-track img { height: 120px; width: auto; margin: 0 10px; border-radius: 8px; border: 2px solid var(--primary-matte); box-shadow: 0 2px 5px rgba(0,0,0,0.3); object-fit: cover; cursor: zoom-in; }
+        
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .flavor-strip-container:hover .flavor-track { animation-play-state: paused; }
+        /* REMOVED: .flavor-strip-container:hover .flavor-track { animation-play-state: paused; } */
 
         /* Sections */
         .dark-section-container { max-width: 900px; margin: 4rem auto; padding: 2.5rem; background-color: var(--bg-container); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); border-top: 5px solid var(--secondary-matte); }
@@ -204,6 +208,38 @@
             .footer-brand .logo-link { justify-content: center; }
         }
         @media (max-width: 400px) { .hero-content h1 { font-size: 2rem; } .section-title { font-size: 1.8rem; } }
+
+        /* --- ADDED LIGHTBOX STYLES --- */
+        #image-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #image-lightbox.active { display: flex; }
+        #lightbox-img {
+            max-width: 90%;
+            max-height: 90vh;
+            border: 4px solid var(--primary-matte);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 3rem;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            z-index: 10000;
+        }
     </style>
 </head>
 <body>
@@ -364,6 +400,11 @@
         </div>
     </footer>
 
+    <div id="image-lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Enlarged Image">
+    </div>
+
     <script>
         const langToggleBtn = document.getElementById('langToggle');
         const body = document.body;
@@ -426,6 +467,31 @@
                 header.style.top = "0";
             }
             lastScrollTop = scrollTop;
+        });
+
+        // --- ADDED: LIGHTBOX LOGIC ---
+        const lightbox = document.getElementById('image-lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.querySelector('.lightbox-close');
+
+        // Attach click listener to flavor track images
+        document.querySelectorAll('.flavor-track img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+
+        // Close functions
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+        
+        // Close when clicking outside the image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+            }
         });
     </script>
 </body>
